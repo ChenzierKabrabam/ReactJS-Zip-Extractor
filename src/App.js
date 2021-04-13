@@ -1,25 +1,45 @@
-import logo from './logo.svg';
-import './App.css';
-
+import { CssBaseline, MuiThemeProvider } from '@material-ui/core'
+import React from 'react'
+import Content from './component/content'
+import Footer from './component/footer'
+import Header from './component/header'
+import { createMuiTheme } from '@material-ui/core'
+// import Extractor from './zip/extractor_config'
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: '#007bff',
+    },
+  },
+  typography: {
+    h5: {
+      fontSize: 20,
+    },
+    h6: {
+      fontSize: 14,
+    },
+    body1: {
+      fontSize: 14,
+    },
+    subtitle1: {
+      fontSize: 12,
+    },
+  },
+})
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <>
+      <MuiThemeProvider theme={theme}>
+        <Header />
+        <main>
+          <Content />
+        </main>
+        {/* <Extractor /> */}
+        <Footer />
+        <CssBaseline />
+      </MuiThemeProvider>
+    </>
+  )
 }
 
-export default App;
+export default App
