@@ -24,7 +24,7 @@ const Output = (props) => {
             variant='h6'
             style={{ marginBottom: '18px', fontWeight: '500' }}
           >
-            Click to download all
+            Click on the file to download
           </Typography>
           <Button
             variant='contained'

@@ -1,6 +1,6 @@
 import { CssBaseline, MuiThemeProvider } from '@material-ui/core'
 import React from 'react'
-import Content from './component/content'
+import Content, { downloadFile } from './component/content'
 import Footer from './component/footer'
 import Header from './component/header'
 import { createMuiTheme } from '@material-ui/core'
@@ -31,7 +31,7 @@ function App() {
     <>
       <MuiThemeProvider theme={theme}>
         <Header />
-        <main>
+        <main onClick={downloadFile}>
           <Content />
         </main>
         {/* <Extractor /> */}

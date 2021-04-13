@@ -25,42 +25,58 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
+let selectedFile, entries
+
+export const downloadFile = async (event) => {
+  const target = event.target
+  if (
+    target.dataset.entryIndex !== undefined &&
+    !target.download &&
+    !target.getAttribute('href')
+  ) {
+    event.preventDefault()
+    try {
+      await download(
+        entries[Number(target.dataset.entryIndex)],
+        target.parentElement,
+        target
+      )
+    } catch (error) {
+      // alert(error)
+      console.log(error)
+    }
+  }
+}
+const download = async (entry, li, a) => {
+  const unzipProgress = document.createElement('progress')
+  li.appendChild(unzipProgress)
+  const blobURL = await model.getURL(entry, {
+    onprogress: (index, max) => {
+      unzipProgress.value = index
+      unzipProgress.max = max
+    },
+  })
+  const clickEvent = new MouseEvent('click')
+  unzipProgress.remove()
+  unzipProgress.value = 0
+  unzipProgress.max = 0
+  a.href = blobURL
+  a.download = entry.filename
+  a.dispatchEvent(clickEvent)
+}
+
 const Content = () => {
   const classes = useStyles()
   const fileInput = useRef(null)
   const fileInputButton = useRef(false)
   const [hide, setHide] = useState(false)
+  let fileList = useRef(false)
   /*
    * functionality for button:
    */
 
-  let selectedFile,
-    entries,
-    fileList = useRef(null)
-
   const handleButtonOnclick = () => {
     fileInput.current.dispatchEvent(new MouseEvent('click'))
-  }
-
-  const downloadFile = async (e) => {
-    const target = e.target
-    if (
-      target.dataset.entryIndex !== undefined &&
-      !target.download &&
-      !target.getAttribute('href')
-    ) {
-      e.preventDefault()
-      try {
-        await download(
-          entries[Number(target.dataset.entryIndex)],
-          target.parentElement,
-          target
-        )
-      } catch (error) {
-        // alert(error)
-        console.log(error)
-      }
-    }
   }
 
   const selectFile = async () => {
@@ -73,9 +89,6 @@ const Content = () => {
       alert(error)
       console.log(error)
     }
-    // finally {
-    //   fileInput.current.value = './'
-    // }
   }
 
   const loadFile = async () => {
@@ -83,7 +96,25 @@ const Content = () => {
     if (entries && entries.length) {
       fileList.current.classList.remove('empty')
     }
-    // refresh()
+    refresh()
+    // const newFileList = fileList.current.cloneNode()
+    // entries.forEach((entry, entryIndex) => {
+    //   const li = document.createElement('li')
+    //   const anchor = document.createElement('a')
+    //   anchor.dataset.entryIndex = entryIndex
+    //   anchor.textContent = anchor.title = entry.filename
+    //   anchor.title = `${entry.filename}`
+    //   if (!entry.directory) {
+    //     anchor.href = ''
+    //   }
+    //   li.appendChild(anchor)
+    //   newFileList.appendChild(li)
+    // })
+    // fileList.current.replaceWith(newFileList)
+    // fileList = newFileList
+  }
+
+  const refresh = () => {
     const newFileList = fileList.current.cloneNode()
     entries.forEach((entry, entryIndex) => {
       const li = document.createElement('li')
@@ -101,24 +132,6 @@ const Content = () => {
     fileList = newFileList
   }
 
-  const download = async (entry, li, a) => {
-    const unzipProgress = document.createElement('progress')
-    li.appendChild(unzipProgress)
-    const blobURL = await model.getURL(entry, {
-      onprogress: (index, max) => {
-        unzipProgress.value = index
-        unzipProgress.max = max
-      },
-    })
-    const clickEvent = new MouseEvent('click')
-    unzipProgress.remove()
-    unzipProgress.value = 0
-    unzipProgress.max = 0
-    a.href = blobURL
-    a.download = entry.filename
-    a.dispatchEvent(clickEvent)
-  }
-
   /*
    * end of function
    */
@@ -129,7 +142,7 @@ const Content = () => {
         elevation={0}
         variant='outlined'
         className={classes.root}
-        onClick={downloadFile}
+        // onClick={downloadFile}
       >
         {hide === false ? (
           <>
