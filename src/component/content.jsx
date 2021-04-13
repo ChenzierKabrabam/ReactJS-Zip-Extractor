@@ -38,7 +38,7 @@ export const downloadFile = async (event) => {
     try {
       await download(
         entries[Number(target.dataset.entryIndex)],
-        target.parentElement,
+        target.parentNode,
         target
       )
     } catch (error) {
