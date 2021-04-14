@@ -42,7 +42,6 @@ const Output = (props) => {
           startIcon={<BiIcons.BiArrowBack />}
         >
           <Typography
-            component='a'
             style={{
               textTransform: 'none',
               textDecoration: 'none',
