@@ -34,14 +34,21 @@ const Output = (props) => {
             download
           </Button>
         </Typography>
-        <ul ref={props.refFile}></ul>
+        <ul ref={props.refFile} className={props.ulStyle}></ul>
         <Button
           variant='contained'
           style={{ background: 'grey', color: '#ffffff' }}
-          onClick={() => alert('hello')}
           startIcon={<BiIcons.BiArrowBack />}
         >
-          <Typography style={{ textTransform: 'none' }}>
+          <Typography
+            component='a'
+            href='/'
+            style={{
+              textTransform: 'none',
+              textDecoration: 'none',
+              color: '#ffffff',
+            }}
+          >
             Extract another archieve
           </Typography>
         </Button>

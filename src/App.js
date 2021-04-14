@@ -1,10 +1,9 @@
 import { CssBaseline, MuiThemeProvider } from '@material-ui/core'
 import React from 'react'
-import Content, { downloadFile } from './component/content'
+import Content from './component/content'
 import Footer from './component/footer'
 import Header from './component/header'
 import { createMuiTheme } from '@material-ui/core'
-// import Extractor from './zip/extractor_config'
 const theme = createMuiTheme({
   palette: {
     primary: {
@@ -31,10 +30,9 @@ function App() {
     <>
       <MuiThemeProvider theme={theme}>
         <Header />
-        <main onClick={downloadFile}>
+        <main>
           <Content />
         </main>
-        {/* <Extractor /> */}
         <Footer />
         <CssBaseline />
       </MuiThemeProvider>
