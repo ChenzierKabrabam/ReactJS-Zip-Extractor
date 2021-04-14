@@ -37,12 +37,12 @@ const Output = (props) => {
         <ul ref={props.refFile} className={props.ulStyle}></ul>
         <Button
           variant='contained'
+          href='/'
           style={{ background: 'grey', color: '#ffffff' }}
           startIcon={<BiIcons.BiArrowBack />}
         >
           <Typography
             component='a'
-            href='/'
             style={{
               textTransform: 'none',
               textDecoration: 'none',
