@@ -14,7 +14,7 @@ code {
 }
 
 li {
-  width: fit-content;
+  max-width: 300px;
   padding: 4px 4px;
   border-radius: 4px;
   display: flex;
@@ -22,4 +22,9 @@ li {
 
 li:hover {
   background-color: #efefef;
+}
+
+a {
+  white-space: initial;
+  word-break: break-all;
 }

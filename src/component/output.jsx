@@ -1,10 +1,40 @@
 import { Button, Typography } from '@material-ui/core'
 import React from 'react'
+import { entries, download } from './content'
 import * as BiIcons from 'react-icons/bi'
 
 const Output = (props) => {
+  const downloadFile = async (event) => {
+    const target = event.target
+
+    if (
+      target.dataset.entryIndex !== undefined &&
+      !target.download &&
+      !target.getAttribute('href')
+    ) {
+      event.preventDefault()
+
+      try {
+        await download(
+          entries[Number(target.dataset.entryIndex)],
+          target.parentElement,
+          target
+        )
+      } catch (e) {
+        alert(e)
+      }
+    }
+  }
+
+  const downloadAll = () => {
+    alert('hello')
+    for (let i = 0; i < entries.length; i++) {
+      console.log(entries[i])
+    }
+  }
+
   return (
-    <>
+    <div onClick={downloadFile}>
       <Typography
         component='div'
         style={{ width: '100%', alignItem: 'flex-start', paddingLeft: '18px' }}
@@ -30,11 +60,12 @@ const Output = (props) => {
             variant='contained'
             color='primary'
             startIcon={<BiIcons.BiDownload />}
+            onClick={downloadAll}
           >
             download
           </Button>
         </Typography>
-        <ul ref={props.refFile} className={props.ulStyle}></ul>
+        <ul ref={props.refFile} className={(props.ulStyle, 'empty')}></ul>
         <Button
           variant='contained'
           href='/'
@@ -52,7 +83,7 @@ const Output = (props) => {
           </Typography>
         </Button>
       </Typography>
-    </>
+    </div>
   )
 }
 

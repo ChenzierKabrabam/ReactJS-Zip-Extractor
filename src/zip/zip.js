@@ -1,4 +1,4 @@
-import * as zip from '@zip.js/zip.js/dist/zip'
+import * as zip from '@zip.js/zip.js/dist/zip-full'
 
 export const model = (() => {
   return {
