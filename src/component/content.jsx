@@ -31,19 +31,23 @@ export const download = async (entry, li, a) => {
   const unzipProgress = document.createElement('progress')
   unzipProgress.style.display = 'none'
   li.appendChild(unzipProgress)
-  const blobURL = await model.getURL(entry, {
-    onprogress: (index, max) => {
-      unzipProgress.value = index
-      unzipProgress.max = max
-    },
-  })
-  const clickEvent = new MouseEvent('click')
-  unzipProgress.remove()
-  unzipProgress.value = 0
-  unzipProgress.max = 0
-  a.href = blobURL
-  a.download = entry.filename
-  a.dispatchEvent(clickEvent)
+  try {
+    const blobURL = await model.getURL(entry, {
+      onprogress: (index, max) => {
+        unzipProgress.value = index
+        unzipProgress.max = max
+      },
+    })
+    const clickEvent = new MouseEvent('click')
+    unzipProgress.remove()
+    unzipProgress.value = 0
+    unzipProgress.max = 0
+    a.href = blobURL
+    a.download = entry.filename
+    a.dispatchEvent(clickEvent)
+  } catch (error) {
+    alert(error)
+  }
 }
 
 const Content = () => {
