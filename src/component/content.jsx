@@ -1,6 +1,6 @@
 import React, { useRef } from 'react'
 import { makeStyles, Paper } from '@material-ui/core'
-import { model } from '../zip/zip'
+import { selectInflateImplementation, model } from '../zip/zip'
 import DefaultButton from './default_button'
 import Output from './output'
 
@@ -59,6 +59,7 @@ const Content = () => {
   const handleButtonOnclick = () => {
     fileInput.current.dispatchEvent(new MouseEvent('click'))
   }
+  // selectInflateImplementation()
 
   const selectFile = async () => {
     try {
