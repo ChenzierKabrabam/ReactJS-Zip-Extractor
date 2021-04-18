@@ -1,25 +1,12 @@
-import * as zip from '@zip.js/zip.js/dist/zip-full'
+import * as zip from '@zip.js/zip.js/dist/zip'
+// import * as zWorker from '@zip.js/zip.js/dist/z-worker'
 
-// const INFLATE_IMPLEMENTATIONS = {
-//   'zip.js': ['lib/z-worker.js'],
-// }
-
-// export const selectInflateImplementation = () => {
-//   const inflateImplementation =
-//     INFLATE_IMPLEMENTATIONS[inflateImplementationInput.value]
-//   zip.configure({
-//     workerScripts: {
-//       inflate: inflateImplementation,
-//     },
-//   })
-// }
-
-zip.configure({
-  workerScripts: {
-    deflate: ['library_path/z-worker.js'],
-    inflate: ['library_path/z-worker.js'],
-  },
-})
+// zip.configure({
+//   workerScripts: {
+//     deflate: [],
+//     inflate: [zWorker],
+//   },
+// })
 
 export const model = (() => {
   return {
