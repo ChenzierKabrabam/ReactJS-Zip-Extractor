@@ -4,6 +4,7 @@ import { model } from '../zip/zip'
 import DefaultButton from './default_button'
 import Output from './output'
 import * as zip from '@zip.js/zip.js/dist/zip-full'
+import * as fflate from '@zip.js/zip.js/dist/z-worker-fflate'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -33,7 +34,6 @@ export const download = async (entry, li, a) => {
   unzipProgress.style.display = 'none'
   li.appendChild(unzipProgress)
   const blobURL = await model.getURL(entry, {
-    useWebWorkers: true,
     onprogress: (index, max) => {
       unzipProgress.value = index
       unzipProgress.max = max
@@ -56,11 +56,22 @@ const Content = () => {
   let fileList = useRef(false)
   let selectedFile
 
+  // zip.configure({
+  //   workerScripts: {
+  //     inflate: ['../zip/z-worker.js'],
+  //     deflate: ['../zip/z-worker.js'],
+  //   },
+  // })
+  const { Deflate, Inflate } = zip.initShimAsyncCodec(
+    fflate,
+    undefined,
+    (codec, onData) => (codec.ondata = onData)
+  )
+
   zip.configure({
-    workerScripts: {
-      inflate: ['../zip/z-worker.js'],
-      deflate: ['../zip/z-worker.js'],
-    },
+    useWebWorkers: false,
+    Deflate,
+    Inflate,
   })
 
   //Dispatches an Event at the specified EventTarget, (synchronously) invoking the affected EventListeners in the appropriate order
