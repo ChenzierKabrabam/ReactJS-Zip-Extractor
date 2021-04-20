@@ -56,23 +56,23 @@ const Content = () => {
   let fileList = useRef(false)
   let selectedFile
 
-  // zip.configure({
-  //   workerScripts: {
-  //     inflate: ['../zip/z-worker.js'],
-  //     deflate: ['../zip/z-worker.js'],
-  //   },
-  // })
-  const { Deflate, Inflate } = zip.initShimAsyncCodec(
-    fflate,
-    undefined,
-    (codec, onData) => (codec.ondata = onData)
-  )
-
   zip.configure({
-    useWebWorkers: false,
-    Deflate,
-    Inflate,
+    workerScripts: {
+      inflate: ['../zip/z-worker.js', '../zip/z-worker-fflate.js'],
+      deflate: ['../zip/z-worker.js', '../zip/z-worker-fflate.js'],
+    },
   })
+  // const { Deflate, Inflate } = zip.initShimAsyncCodec(
+  //   fflate,
+  //   undefined,
+  //   (codec, onData) => (codec.ondata = onData)
+  // )
+
+  // zip.configure({
+  //   useWebWorkers: false,
+  //   Deflate,
+  //   Inflate,
+  // })
 
   //Dispatches an Event at the specified EventTarget, (synchronously) invoking the affected EventListeners in the appropriate order
 
