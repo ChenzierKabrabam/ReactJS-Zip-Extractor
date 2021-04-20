@@ -2,8 +2,8 @@ import * as zip from '@zip.js/zip.js/dist/zip'
 
 zip.configure({
   workerScripts: {
-    deflate: ['../lib/z-worker.js'],
-    inflate: ['../lib/z-worker.js'],
+    deflate: ['./z-worker.js'],
+    inflate: ['./z-worker.js'],
   },
 })
 
