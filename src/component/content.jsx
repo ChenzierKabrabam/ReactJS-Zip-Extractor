@@ -33,6 +33,7 @@ export const download = async (entry, li, a) => {
   unzipProgress.style.display = 'none'
   li.appendChild(unzipProgress)
   const blobURL = await model.getURL(entry, {
+    useWebWorkers: true,
     onprogress: (index, max) => {
       unzipProgress.value = index
       unzipProgress.max = max
