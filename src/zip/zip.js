@@ -1,10 +1,7 @@
 import * as zip from '@zip.js/zip.js/dist/zip'
 
 zip.configure({
-  workerScripts: {
-    deflate: ['./z-worker.js'],
-    inflate: ['./z-worker.js'],
-  },
+  webWorkers: false,
 })
 
 export const model = (() => {
