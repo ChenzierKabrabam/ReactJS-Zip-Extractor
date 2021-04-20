@@ -5,11 +5,6 @@ import DefaultButton from './default_button'
 import Output from './output'
 import * as zip from '@zip.js/zip.js/dist/zip-full'
 
-zip.configure({
-  inflate: ['../zip/z-worker.js'],
-  deflate: ['../zip/z-worker.js'],
-})
-
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 390,
@@ -59,6 +54,11 @@ const Content = () => {
   const fileInputButton = useRef(false)
   let fileList = useRef(false)
   let selectedFile
+
+  zip.configure({
+    inflate: ['../zip/z-worker.js'],
+    deflate: ['../zip/z-worker.js'],
+  })
 
   //Dispatches an Event at the specified EventTarget, (synchronously) invoking the affected EventListeners in the appropriate order
 
