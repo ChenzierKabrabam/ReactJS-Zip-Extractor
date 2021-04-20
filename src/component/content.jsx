@@ -3,6 +3,12 @@ import { makeStyles, Paper } from '@material-ui/core'
 import { model } from '../zip/zip'
 import DefaultButton from './default_button'
 import Output from './output'
+import * as zip from '@zip.js/zip.js/dist/zip-full'
+
+zip.configure({
+  inflate: ['../zip/z-worker.js'],
+  deflate: ['../zip/z-worker.js'],
+})
 
 const useStyles = makeStyles((theme) => ({
   root: {

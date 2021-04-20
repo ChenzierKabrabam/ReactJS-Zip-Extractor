@@ -1,8 +1,9 @@
 import * as zip from '@zip.js/zip.js/dist/zip-full'
 
-zip.configure({
-  webWorkers: false,
-})
+// zip.configure({
+//   inflate: ['./z-worker.js'],
+//   deflate: ['./z-worker.js'],
+// })
 
 export const model = (() => {
   return {
