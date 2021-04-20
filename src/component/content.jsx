@@ -3,7 +3,6 @@ import { makeStyles, Paper } from '@material-ui/core'
 import { model } from '../zip/zip'
 import DefaultButton from './default_button'
 import Output from './output'
-import * as zip from '@zip.js/zip.js/dist/zip-full'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -54,24 +53,6 @@ const Content = () => {
   const fileInputButton = useRef(false)
   let fileList = useRef(false)
   let selectedFile
-
-  zip.configure({
-    workerScripts: {
-      inflate: ['../zip/z-worker-fflate.js'],
-      deflate: ['../zip/z-worker-fflate.js'],
-    },
-  })
-  // const { Deflate, Inflate } = zip.initShimAsyncCodec(
-  //   fflate,
-  //   undefined,
-  //   (codec, onData) => (codec.ondata = onData)
-  // )
-
-  // zip.configure({
-  //   useWebWorkers: false,
-  //   Deflate,
-  //   Inflate,
-  // })
 
   //Dispatches an Event at the specified EventTarget, (synchronously) invoking the affected EventListeners in the appropriate order
 
