@@ -1,4 +1,4 @@
-import * as zip from '@zip.js/zip.js/dist/zip-full'
+import * as zip from '@zip.js/zip.js/dist/zip'
 
 // zip.configure({
 //   inflate: ['./z-worker.js'],

@@ -57,7 +57,7 @@ const Content = () => {
 
   zip.configure({
     workerScripts: {
-      // inflate: ['../zip/z-worker.js'],
+      inflate: ['../zip/z-worker.js'],
       deflate: ['../zip/z-worker.js'],
     },
   })
