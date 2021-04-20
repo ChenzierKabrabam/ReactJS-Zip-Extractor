@@ -56,8 +56,10 @@ const Content = () => {
   let selectedFile
 
   zip.configure({
-    inflate: ['../zip/z-worker.js'],
-    deflate: ['../zip/z-worker.js'],
+    workerScripts: {
+      // inflate: ['../zip/z-worker.js'],
+      deflate: ['../zip/z-worker.js'],
+    },
   })
 
   //Dispatches an Event at the specified EventTarget, (synchronously) invoking the affected EventListeners in the appropriate order
