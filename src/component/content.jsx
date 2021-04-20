@@ -4,7 +4,6 @@ import { model } from '../zip/zip'
 import DefaultButton from './default_button'
 import Output from './output'
 import * as zip from '@zip.js/zip.js/dist/zip-full'
-import * as fflate from '@zip.js/zip.js/dist/z-worker-fflate'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -58,8 +57,8 @@ const Content = () => {
 
   zip.configure({
     workerScripts: {
-      inflate: ['../zip/z-worker.js', '../zip/z-worker-fflate.js'],
-      deflate: ['../zip/z-worker.js', '../zip/z-worker-fflate.js'],
+      inflate: ['../zip/z-worker-fflate.js'],
+      deflate: ['../zip/z-worker-fflate.js'],
     },
   })
   // const { Deflate, Inflate } = zip.initShimAsyncCodec(
