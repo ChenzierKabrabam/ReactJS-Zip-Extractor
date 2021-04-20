@@ -26,8 +26,7 @@ const Output = (props) => {
     }
   }
 
-  const downloadAll = () => {
-    alert('hello')
+  const downloadAll = async (event) => {
     for (let i = 0; i < entries.length; i++) {
       console.log(entries[i])
     }
