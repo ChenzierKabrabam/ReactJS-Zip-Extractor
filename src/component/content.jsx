@@ -43,6 +43,10 @@ export const download = async (entry, li, a) => {
   unzipProgress.max = 0
   a.href = blobURL
   a.download = entry.filename
+  if (entry.directory === true) {
+    a.removeAttribute('href')
+    a.removeAttribute('download')
+  }
   a.dispatchEvent(clickEvent)
 }
 
@@ -72,14 +76,19 @@ const Content = () => {
   }
 
   const loadFile = async () => {
-    setHide(false)
     entries = await model.getEntries(selectedFile)
-    console.log(entries)
+    setHide(false)
     refreshList()
   }
 
   const refreshList = () => {
     const newFileList = fileList.current.cloneNode()
+
+    const span = document.createElement('li')
+    span.style.fontSize = '14px'
+    span.style.fontWeight = '500'
+    span.innerText = selectedFile.name
+    newFileList.appendChild(span)
 
     entries.forEach((entry, entryIndex) => {
       const li = document.createElement('li')
@@ -94,11 +103,13 @@ const Content = () => {
         anchor.href = ''
       }
       if (entry.directory) {
+        li.style.fontSize = '14px'
         li.style.fontWeight = '500'
       }
       li.appendChild(anchor)
       newFileList.appendChild(li)
     })
+
     fileList.current.replaceWith(newFileList)
     fileList = newFileList
   }

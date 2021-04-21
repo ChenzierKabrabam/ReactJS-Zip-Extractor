@@ -26,62 +26,60 @@ const Output = (props) => {
     }
   }
 
-  const downloadAll = async (event) => {
-    for (let i = 0; i < entries.length; i++) {
-      console.log(entries[i])
-    }
-  }
+  // const downloadAll = async () => {
+  //   for (let i = 0; i < entries.length; i++) {
+  //     console.log(entries[i])
+  //   }
+  // }
 
   return (
-    <div onClick={downloadFile}>
+    <div
+      onClick={downloadFile}
+      style={{ width: '100%', alignItem: 'flex-start', paddingLeft: '28px' }}
+    >
       <Typography
-        component='div'
-        style={{ width: '100%', alignItem: 'flex-start', paddingLeft: '18px' }}
+        variant='h5'
+        style={{
+          marginBottom: '10px',
+          textTransform: 'bolder',
+          fontWeight: '700',
+        }}
       >
+        Archieve successfully extracted
+      </Typography>
+      <Typography component='div'>
         <Typography
-          variant='h5'
-          style={{
-            marginBottom: '10px',
-            textTransform: 'bolder',
-            fontWeight: '700',
-          }}
+          variant='h6'
+          style={{ marginBottom: '18px', fontWeight: '500' }}
         >
-          Archieve successfully extracted
+          Click on the file to download
         </Typography>
-        <Typography component='div'>
-          <Typography
-            variant='h6'
-            style={{ marginBottom: '18px', fontWeight: '500' }}
-          >
-            Click on the file to download
-          </Typography>
-          <Button
-            variant='contained'
-            color='primary'
-            startIcon={<BiIcons.BiDownload />}
-            onClick={downloadAll}
-          >
-            download
-          </Button>
-        </Typography>
-        <ul ref={props.refFile} className={(props.ulStyle, 'empty')}></ul>
         <Button
           variant='contained'
-          href='/'
-          style={{ background: 'grey', color: '#ffffff' }}
-          startIcon={<BiIcons.BiArrowBack />}
+          color='primary'
+          startIcon={<BiIcons.BiDownload />}
+          // onClick={downloadAll}
         >
-          <Typography
-            style={{
-              textTransform: 'none',
-              textDecoration: 'none',
-              color: '#ffffff',
-            }}
-          >
-            Extract another archieve
-          </Typography>
+          download
         </Button>
       </Typography>
+      <ul ref={props.refFile} className={(props.ulStyle, 'empty')}></ul>
+      <Button
+        variant='contained'
+        href='/'
+        style={{ background: 'grey', color: '#ffffff' }}
+        startIcon={<BiIcons.BiArrowBack />}
+      >
+        <Typography
+          style={{
+            textTransform: 'none',
+            textDecoration: 'none',
+            color: '#ffffff',
+          }}
+        >
+          Extract another archieve
+        </Typography>
+      </Button>
     </div>
   )
 }
