@@ -1,6 +1,6 @@
 import { Button, Typography } from '@material-ui/core'
 import React from 'react'
-import { entries, download } from './content'
+import { entries, download, blobURL } from './content'
 import * as BiIcons from 'react-icons/bi'
 
 const Output = (props) => {
@@ -26,11 +26,17 @@ const Output = (props) => {
     }
   }
 
-  // const downloadAll = async () => {
-  //   for (let i = 0; i < entries.length; i++) {
-  //     console.log(entries[i])
-  //   }
-  // }
+  const downloadAll = () => {
+    const anchor = document.createElement('a')
+    for (let i = 0; i < entries.length; i++) {
+      const download = entries[i]
+      if (download.directory === false) {
+        anchor.setAttribute('href', blobURL)
+        anchor.setAttribute('download', download.filename)
+        anchor.click()
+      }
+    }
+  }
 
   return (
     <div
@@ -58,7 +64,7 @@ const Output = (props) => {
           variant='contained'
           color='primary'
           startIcon={<BiIcons.BiDownload />}
-          // onClick={downloadAll}
+          onClick={downloadAll}
         >
           download
         </Button>

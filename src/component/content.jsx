@@ -27,22 +27,15 @@ const useStyles = makeStyles((theme) => ({
 
 export let entries
 
+export const blobURL = async (entry) => {
+  await model.getURL(entry)
+}
 export const download = async (entry, li, a) => {
-  const unzipProgress = document.createElement('progress')
-  unzipProgress.style.display = 'none'
-  li.appendChild(unzipProgress)
-  const blobURL = await model.getURL(entry, {
-    onprogress: (index, max) => {
-      unzipProgress.value = index
-      unzipProgress.max = max
-    },
-  })
   const clickEvent = new MouseEvent('click')
-  unzipProgress.remove()
-  unzipProgress.value = 0
-  unzipProgress.max = 0
   a.href = blobURL
   a.download = entry.filename
+
+  // removing the address and download attribute so that it wont download it
   if (entry.directory === true) {
     a.removeAttribute('href')
     a.removeAttribute('download')
@@ -58,18 +51,24 @@ const Content = () => {
   let fileList = useRef(false)
   let selectedFile
 
-  //Dispatches an Event at the specified EventTarget, (synchronously) invoking the affected EventListeners in the appropriate order
+  /*
+   * Dispatches an Event at the specified EventTarget, (synchronously) invoking the affected EventListeners
+   * in the appropriate order
+   */
+
+  /*
+   * The Blob object represents a blob, which is a file-like object of immutable, raw data; they can be read as
+   * text or binary data, or converted into a ReadableStream so its methods can be used for processing the data.
+   */
 
   const handleButtonOnclick = () => {
     fileInput.current.dispatchEvent(new MouseEvent('click'))
   }
-  // selectInflateImplementation()
 
   const selectFile = async () => {
     try {
       selectedFile = fileInput.current.files[0]
       await loadFile()
-      console.log(selectedFile)
     } catch (error) {
       alert(error)
     }
@@ -84,6 +83,7 @@ const Content = () => {
   const refreshList = () => {
     const newFileList = fileList.current.cloneNode()
 
+    // showing the filename of the zip
     const span = document.createElement('li')
     span.style.fontSize = '14px'
     span.style.fontWeight = '500'

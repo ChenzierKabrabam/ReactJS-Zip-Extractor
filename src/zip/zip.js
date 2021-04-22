@@ -1,11 +1,6 @@
 import * as zip from '@zip.js/zip.js/dist/zip'
 import * as fflate from 'fflate'
 
-// zip.configure({
-//   inflate: ['./z-worker.js'],
-//   deflate: ['./z-worker.js'],
-// })
-
 const { Deflate, Inflate } = zip.initShimAsyncCodec(
   fflate,
   undefined,
