@@ -66,7 +66,7 @@ const Output = (props) => {
           startIcon={<BiIcons.BiDownload />}
           onClick={downloadAll}
         >
-          download
+          download all
         </Button>
       </Typography>
       <ul ref={props.refFile} className={(props.ulStyle, 'empty')}></ul>
