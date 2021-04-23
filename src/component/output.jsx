@@ -1,6 +1,7 @@
 import { Button, Typography } from '@material-ui/core'
 import React from 'react'
-import { entries, download, blobURL } from './content'
+import { entries, download } from './content'
+import { model } from '../zip/zip'
 import * as BiIcons from 'react-icons/bi'
 
 const Output = (props) => {
@@ -25,19 +26,21 @@ const Output = (props) => {
       }
     }
   }
+  // const downloadAll = async (entry) => {
+  //   const anchor = document.createElement('a')
+  //   const blobURL = await model.getURL()
+  //   for (let i = 0; i < entries.length; i++) {
+  //     const autoDownload = entries[i]
+  //     console.log(autoDownload)
+  //     if (download.directory === false) {
+  //       anchor.setAttribute('href', blobURL)
+  //       anchor.setAttribute('download', autoDownload.filename)
+  //       anchor.click()
+  //     }
+  //   }
+  // }
 
-  const downloadAll = () => {
-    const anchor = document.createElement('a')
-    for (let i = 0; i < entries.length; i++) {
-      const download = entries[i]
-      if (download.directory === false) {
-        anchor.setAttribute('href', blobURL)
-        anchor.setAttribute('download', download.filename)
-        anchor.click()
-      }
-    }
-  }
-
+  // console.log(download.)
   return (
     <div
       onClick={downloadFile}
@@ -64,12 +67,14 @@ const Output = (props) => {
           variant='contained'
           color='primary'
           startIcon={<BiIcons.BiDownload />}
-          onClick={downloadAll}
+          // onClick={downloadAll}
         >
           download all
         </Button>
       </Typography>
+
       <ul ref={props.refFile} className={(props.ulStyle, 'empty')}></ul>
+
       <Button
         variant='contained'
         href='/'

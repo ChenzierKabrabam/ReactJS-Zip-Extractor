@@ -27,10 +27,8 @@ const useStyles = makeStyles((theme) => ({
 
 export let entries
 
-export const blobURL = async (entry) => {
-  await model.getURL(entry)
-}
 export const download = async (entry, li, a) => {
+  const blobURL = await model.getURL(entry)
   const clickEvent = new MouseEvent('click')
   a.href = blobURL
   a.download = entry.filename
