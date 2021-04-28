@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useState, useRef } from 'react'
 import { makeStyles, Paper } from '@material-ui/core'
 import { model } from '../zip/zip'
 import DefaultButton from './default_button'
@@ -27,23 +27,27 @@ const useStyles = makeStyles((theme) => ({
 
 export let entries
 
-export const download = async (entry, li, a) => {
-  const blobURL = await model.getURL(entry)
-  const clickEvent = new MouseEvent('click')
-  a.href = blobURL
-  a.download = entry.filename
-
-  // removing the address and download attribute so that it wont download it
-  if (entry.directory === true) {
-    a.removeAttribute('href')
-    a.removeAttribute('download')
-  }
-  a.dispatchEvent(clickEvent)
+export async function download(entry, li, a) {
+  model.getURL(entry).then(
+    (value) => {
+      const clickEvent = new MouseEvent('click')
+      a.href = value
+      a.download = entry.filename
+      if (entry.directory === true) {
+        a.removeAttribute('href')
+        a.removeAttribute('download')
+      }
+      a.dispatchEvent(clickEvent)
+    },
+    (error) => {
+      console.log(error)
+    }
+  )
 }
 
 const Content = () => {
   const classes = useStyles()
-  const [hide, setHide] = React.useState(true)
+  const [hide, setHide] = useState(true)
   const fileInput = useRef(null)
   const fileInputButton = useRef(false)
   let fileList = useRef(false)
@@ -78,7 +82,7 @@ const Content = () => {
     refreshList()
   }
 
-  const refreshList = () => {
+  function refreshList() {
     const newFileList = fileList.current.cloneNode()
 
     // showing the filename of the zip

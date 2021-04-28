@@ -26,21 +26,23 @@ const Output = (props) => {
       }
     }
   }
-  // const downloadAll = async (entry) => {
-  //   const anchor = document.createElement('a')
-  //   const blobURL = await model.getURL()
-  //   for (let i = 0; i < entries.length; i++) {
-  //     const autoDownload = entries[i]
-  //     console.log(autoDownload)
-  //     if (download.directory === false) {
-  //       anchor.setAttribute('href', blobURL)
-  //       anchor.setAttribute('download', autoDownload.filename)
-  //       anchor.click()
-  //     }
-  //   }
-  // }
 
-  // console.log(download.)
+  const downloadAll = async () => {
+    for (let i = 0; i < entries.length; i++) {
+      let entry = entries[i]
+      let anchor = document.createElement('a')
+      model.getURL(entry).then((blobURL) => {
+        anchor.setAttribute('href', blobURL)
+        anchor.setAttribute('download', entry.filename)
+        if (entry.directory === true) {
+          anchor.removeAttribute('href')
+          anchor.removeAttribute('download')
+        }
+        anchor.click()
+      })
+    }
+  }
+
   return (
     <div
       onClick={downloadFile}
@@ -67,7 +69,7 @@ const Output = (props) => {
           variant='contained'
           color='primary'
           startIcon={<BiIcons.BiDownload />}
-          // onClick={downloadAll}
+          onClick={downloadAll}
         >
           download all
         </Button>
