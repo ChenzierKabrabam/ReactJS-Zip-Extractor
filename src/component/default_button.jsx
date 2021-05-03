@@ -28,7 +28,6 @@ const DefaultButton = (props) => {
       </Button>
       <input
         type='file'
-        accept='application/zip'
         ref={props.fileInput}
         onChange={props.onHandleOnChange}
         hidden
